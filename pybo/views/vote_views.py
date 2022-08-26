@@ -27,3 +27,4 @@ def vote_answer(request, answer_id):
     else:
         answer.voter.add(request.user)
     return redirect('pybo:detail', question_id=answer.question.id)
+

@@ -36,6 +36,7 @@ def detail(request, question_id):
     pybo 내용 출력
     """
     question=get_object_or_404(Question, pk=question_id)
+    question.update_counter
     sort=request.GET.get('sort', '최신순')
     if sort =='최신순':
         answer_list = Answer.objects.all().order_by('-create_date')
