@@ -1,4 +1,5 @@
-from django.urls import path
+from django.urls import path, include
+from django.conf.urls.static import static
 from .views import base_views, question_views, answer_views, comment_views, vote_views
 app_name='pybo'
 urlpatterns=[
