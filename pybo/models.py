@@ -5,11 +5,12 @@ from ckeditor.fields import RichTextField
 class Question(models.Model):
     author=models.ForeignKey(User, on_delete=models.CASCADE, related_name='author_question')
     subject=models.CharField(max_length=200)
-    content=RichTextField(blank=True, null=True)
+    content=models.TextField()
     create_date=models.DateTimeField()
     modify_date=models.DateTimeField(null=True, blank=True)
     voter = models.ManyToManyField(User, related_name='voter_question')
     view_count = models.PositiveIntegerField(default=0)
+    top_fixed = models.BooleanField(verbose_name='상단고정', default=False)
     def __str__(self):
         return self.subject
     @property

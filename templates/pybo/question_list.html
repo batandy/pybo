@@ -23,6 +23,36 @@
         </tr>
         </thread>
         <tbody>
+        <!--공지사항-->
+        {% if notice_fixed %}
+        {% for notice in notice_fixed %}
+        <tr class="text-center" style="background-color: #e13b3b;">
+            <td>공지사항</td>
+            <td>
+                {% if notice.voter.all.count > 0 %}
+                <span class="badge badge-warning px-2 py-1">
+                    {{ notice.voter.all.count }}
+                </span>
+                {% endif %}
+            </td>
+            <td class="text-left">
+                <a href="{% url 'pybo:detail' notice.id %}" style="color: #060000">
+                    {{ notice.subject }}
+                    {% if notice.answer_set.count > 0 %}
+                    <span class="text-danger small ml-2">
+                        {{ notice.answer_set.count }}
+                    </span>
+                    {% endif %}
+                </a>
+            </td>
+            <td>{{ notice.author.username }}</td>
+            <td>{{ notice.view_count  }}</td>
+            <td>{{ notice.create_date }}</td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+        <!--공지사항 끝-->
+        <!--일반 게시글-->
         {% if question_list %}
         {% for question in question_list %}
         <tr class="text-center">

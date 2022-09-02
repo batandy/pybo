@@ -19,6 +19,9 @@ def question_create(request):
             question=form.save(commit=False)
             question.author=request.user
             question.create_date=timezone.now()
+            if len(request.POST.getlist('top_fixed'))!=0:
+                question.top_fixed=True
+            else: question.top_fixed=False
             question.save()
             return redirect('pybo:index')
     else:

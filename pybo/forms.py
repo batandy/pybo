@@ -1,7 +1,8 @@
 from django import forms
 from pybo.models import Question,Answer, Comment
-
+from django.contrib.auth.models import User
 class QuestionForm(forms.ModelForm):
+
     class Meta:
         model = Question
         fields = ['subject', 'content']
