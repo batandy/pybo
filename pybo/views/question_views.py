@@ -12,7 +12,6 @@ def question_create(request):
     """
     pybo 질문등록
     """
-
     if request.method == 'POST':
         form=QuestionForm(request.POST)
         if form.is_valid():

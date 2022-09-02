@@ -25,6 +25,7 @@
         <tbody>
         <!--공지사항-->
         {% if notice_fixed %}
+        {% if question_list.number == 1 %}
         {% for notice in notice_fixed %}
         <tr class="text-center" style="background-color: #e13b3b;">
             <td>공지사항</td>
@@ -46,10 +47,11 @@
                 </a>
             </td>
             <td>{{ notice.author.username }}</td>
-            <td>{{ notice.view_count  }}</td>
+            <td>{{ notice.view_count }}</td>
             <td>{{ notice.create_date }}</td>
         </tr>
         {% endfor %}
+        {% endif %}
         {% endif %}
         <!--공지사항 끝-->
         <!--일반 게시글-->

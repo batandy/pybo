@@ -27,7 +27,11 @@ def index(request):
     max_page=len(paginator.page_range)
 
     #공지사항 리스트
-    notice_fixed = Question.objects.filter(top_fixed=True).order_by('create_date')
+    if kw:
+        notice_fixed = None
+    else:
+        notice_fixed=Question.objects.filter(top_fixed=True).order_by('create_date')
+
 
     context={'question_list': page_obj, 'page': page, 'kw': kw, 'max_page':max_page, 'notice_fixed':notice_fixed}
     return render(request, 'pybo/question_list.html', context)
