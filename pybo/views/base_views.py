@@ -2,15 +2,18 @@ from django.core.paginator import Paginator
 from django.db.models import Q, Count
 from django.shortcuts import render, get_object_or_404
 
-from ..models import Question, Answer
+from ..models import Question, Answer, Category
 
-def index(request):
+def index(request, category_name='qna'):
     """
     pybo 목록출력
     """
     # 입력인자
     page=request.GET.get('page', '1')
     kw=request.GET.get('kw', '')
+
+    category_list = Category.objects.all()
+    category = get_object_or_404(Category, name=category_name)
     # 조회
     question_list=Question.objects.filter(top_fixed=False).order_by('-create_date')
     if kw:
@@ -33,7 +36,7 @@ def index(request):
         notice_fixed=Question.objects.filter(top_fixed=True).order_by('create_date')
 
 
-    context={'question_list': page_obj, 'page': page, 'kw': kw, 'max_page':max_page, 'notice_fixed':notice_fixed}
+    context={'question_list': page_obj, 'page': page, 'kw': kw, 'max_page':max_page, 'notice_fixed':notice_fixed, 'category_list': category_list, 'category': category}
     return render(request, 'pybo/question_list.html', context)
 
 def detail(request, question_id):
