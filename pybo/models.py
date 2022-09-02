@@ -5,7 +5,7 @@ from ckeditor.fields import RichTextField
 class Question(models.Model):
     author=models.ForeignKey(User, on_delete=models.CASCADE, related_name='author_question')
     subject=models.CharField(max_length=200)
-    content=models.TextField()
+    content=RichTextField(null=True, blank=True)
     create_date=models.DateTimeField()
     modify_date=models.DateTimeField(null=True, blank=True)
     voter = models.ManyToManyField(User, related_name='voter_question')
