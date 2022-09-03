@@ -47,70 +47,69 @@
                                 </tr>
                                 </thread>
                                 <tbody>
-                                
-                                <!--공지사항-->
-                                {% if notice_fixed %}
-                                {% if question_list.number == 1 %}
-                                {% for notice in notice_fixed %}
-                                <tr class="text-center" style="background-color: #e13b3b;">
-                                    <td>공지사항</td>
-                                    <td>
-                                        {% if notice.voter.all.count > 0 %}
-                                        <span class="badge badge-warning px-2 py-1">
-                                            {{ notice.voter.all.count }}
-                                        </span>
-                                        {% endif %}
-                                    </td>
-                                    <td class="text-left">
-                                        <a href="{% url 'pybo:detail' notice.id %}" style="color: #060000">
-                                            {{ notice.subject }}
-                                            {% if notice.answer_set.count > 0 %}
-                                            <span class="text-danger small ml-2">
-                                                {{ notice.answer_set.count }}
+                                    <!--공지사항-->
+                                    {% if notice_fixed %}
+                                    {% if question_list.number == 1 %}
+                                    {% for notice in notice_fixed %}
+                                    <tr class="text-center" style="background-color: #e13b3b;">
+                                        <td>공지사항</td>
+                                        <td>
+                                            {% if notice.voter.all.count > 0 %}
+                                            <span class="badge badge-warning px-2 py-1">
+                                                {{ notice.voter.all.count }}
                                             </span>
                                             {% endif %}
-                                        </a>
-                                    </td>
-                                    <td>{{ notice.author.username }}</td>
-                                    <td>{{ notice.view_count }}</td>
-                                    <td>{{ notice.create_date }}</td>
-                                </tr>
-                                {% endfor %}
-                                {% endif %}
-                                {% endif %}
-                                <!--공지사항 끝-->
-                                <!--일반 게시글-->
-                                {% if question_list %}
-                                {% for question in question_list %}
-                                <tr class="text-center">
-                                    <td>{{ question_list.paginator.count|sub:question_list.start_index|sub:forloop.counter0|add:1 }}</td>
-                                    <td>
-                                        {% if question.voter.all.count > 0 %}
-                                        <span class="badge badge-warning px-2 py-1">
-                                            {{ question.voter.all.count }}
-                                        </span>
-                                        {% endif %}
-                                    </td>
-                                    <td class="text-left">
-                                        <a href="{% url 'pybo:detail' question.id %}">
-                                            {{ question.subject }}
-                                            {% if question.answer_set.count > 0 %}
-                                            <span class="text-danger small ml-2">
-                                                {{ question.answer_set.count }}
+                                        </td>
+                                        <td class="text-left">
+                                            <a href="{% url 'pybo:detail' notice.id category.name %}" style="color: #060000">
+                                                {{ notice.subject }}
+                                                {% if notice.answer_set.count > 0 %}
+                                                <span class="text-danger small ml-2">
+                                                    {{ notice.answer_set.count }}
+                                                </span>
+                                                {% endif %}
+                                            </a>
+                                        </td>
+                                        <td>{{ notice.author.username }}</td>
+                                        <td>{{ notice.view_count }}</td>
+                                        <td>{{ notice.create_date }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    {% endif %}
+                                    {% endif %}
+                                    <!--공지사항 끝-->
+                                    <!--일반 게시글-->
+                                    {% if question_list %}
+                                    {% for question in question_list %}
+                                    <tr class="text-center">
+                                        <td>{{ question_list.paginator.count|sub:question_list.start_index|sub:forloop.counter0|add:1 }}</td>
+                                        <td>
+                                            {% if question.voter.all.count > 0 %}
+                                            <span class="badge badge-warning px-2 py-1">
+                                                {{ question.voter.all.count }}
                                             </span>
                                             {% endif %}
-                                        </a>
-                                    </td>
-                                    <td>{{ question.author.username }}</td>
-                                    <td>{{ question.view_count  }}</td>
-                                    <td>{{ question.create_date }}</td>
-                                </tr>
-                                {% endfor %}
-                                {% else %}
-                                <tr>
-                                    <td colspan="3">질문이 없습니다.</td>
-                                </tr>
-                                {% endif %}
+                                        </td>
+                                        <td class="text-left">
+                                            <a href="{% url 'pybo:detail' question.id category.name %}">
+                                                {{ question.subject }}
+                                                {% if question.answer_set.count > 0 %}
+                                                <span class="text-danger small ml-2">
+                                                    {{ question.answer_set.count }}
+                                                </span>
+                                                {% endif %}
+                                            </a>
+                                        </td>
+                                        <td>{{ question.author.username }}</td>
+                                        <td>{{ question.view_count  }}</td>
+                                        <td>{{ question.create_date }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    {% else %}
+                                    <tr>
+                                        <td colspan="3">질문이 없습니다.</td>
+                                    </tr>
+                                    {% endif %}
                                 </tbody>
                             </table>
                             <!-- 페이징 처리 시작 -->
@@ -179,7 +178,6 @@
                                     </a>
                                 </li>
                                 {% endif %}
-
                             </ul>
                             <!-- 페이징 처리 끝 -->
                             <a href="{% url 'pybo:question_create' category.name %}" class="btn btn-primary">

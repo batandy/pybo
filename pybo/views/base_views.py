@@ -23,7 +23,9 @@ def index(request, category_name='qna'):
             Q(author__username__icontains=kw) |            # 질문 글쓴이 검색
             Q(answer__author__username__icontains=kw)      # 답변 글쓴이 검색
         ).distinct()
-
+    
+    question_list=question_list.filter(category=category)
+    
     # 페이징 처링
     paginator = Paginator(question_list,10)    #페이지당 10개씩 보여주기
     page_obj=paginator.get_page(page)
@@ -34,16 +36,17 @@ def index(request, category_name='qna'):
         notice_fixed = None
     else:
         notice_fixed=Question.objects.filter(top_fixed=True).order_by('create_date')
-
+    notice_fixed=notice_fixed.filter(category=category)
 
     context={'question_list': page_obj, 'page': page, 'kw': kw, 'max_page':max_page, 'notice_fixed':notice_fixed, 'category_list': category_list, 'category': category}
     return render(request, 'pybo/question_list.html', context)
 
-def detail(request, question_id):
+def detail(request, question_id, category_name):
     """
     pybo 내용 출력
     """
     question=get_object_or_404(Question, pk=question_id)
+    category = get_object_or_404(Category, name=category_name)
     question.update_counter
     sort=request.GET.get('sort', '최신순')
     if sort =='최신순':
@@ -51,5 +54,5 @@ def detail(request, question_id):
     else:
         answer_list = Answer.objects.annotate(like_count=Count('voter')).order_by('-like_count', '-create_date')
 
-    context={'question':question, 'answer_list':answer_list}
+    context={'question':question, 'answer_list':answer_list, 'category':category}
     return render(request, 'pybo/question_detail.html', context)

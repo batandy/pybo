@@ -13,6 +13,7 @@
     </div>
     {% endif %}
     <h2 class="border-bottom py-2">{{ question.subject }}</h2>
+    <h1>{{ question.category.name }}</h1>
     <div class="row my-3">
         <div class="col-1"> <!-- 추천영역 -->
             <div class="bg-light text-center p-3 border font-weight-bolder mb-1">{{question.voter.count}}</div>
@@ -44,6 +45,7 @@
                            data-uri="{% url 'pybo:question_delete' question.id  %}">삭제</a>
                     </div>
                     {% endif %}
+                    
                     <!-- 질문 댓글 Start -->
                     {% if question.comment_set.count > 0 %}
                     <div class="mt-3">
