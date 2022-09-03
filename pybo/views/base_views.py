@@ -36,7 +36,8 @@ def index(request, category_name='qna'):
         notice_fixed = None
     else:
         notice_fixed=Question.objects.filter(top_fixed=True).order_by('create_date')
-    notice_fixed=notice_fixed.filter(category=category)
+        notice_fixed=notice_fixed.filter(category=category)
+    
 
     context={'question_list': page_obj, 'page': page, 'kw': kw, 'max_page':max_page, 'notice_fixed':notice_fixed, 'category_list': category_list, 'category': category}
     return render(request, 'pybo/question_list.html', context)
