@@ -1,3 +1,5 @@
+from logging.handlers import QueueListener
+from unicodedata import category
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
@@ -36,7 +38,6 @@ def question_modify(request, question_id):
     질문수정
     """
     question = get_object_or_404(Question, pk=question_id)
-
     if request.user != question.author:
         messages.error(request, '수정권한이 없습니다')
         return redirect('pybo:detail', question_id=question.id)
@@ -47,8 +48,11 @@ def question_modify(request, question_id):
             question = form.save(commit=False)
             question.author = request.user
             question.modify_date = timezone.now()
+            if len(request.POST.getlist('top_fixed'))!=0:
+                question.top_fixed=True
+            else: question.top_fixed=False
             question.save()
-            return redirect('pybo:detail', question_id=question.id)
+            return redirect('pybo:detail', question_id=question.id, category_name=question.category)
     else:
         form = QuestionForm(instance=question)
     context = {'form': form, 'category':question.category}

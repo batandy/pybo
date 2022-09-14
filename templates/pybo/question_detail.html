@@ -12,8 +12,11 @@
     {% endfor %}
     </div>
     {% endif %}
-    <h2 class="border-bottom py-2">{{ question.subject }}</h2>
-    <h1>{{ question.category.name }}</h1>
+    {% if question.top_fixed %}
+        <h2 class="border-bottom py-2">[공지사항]{{ question.subject }}</h2>
+    {% else %}
+        <h2 class="border-bottom py-2">{{ question.subject }}</h2>
+    {% endif %}
     <div class="row my-3">
         <div class="col-1"> <!-- 추천영역 -->
             <div class="bg-light text-center p-3 border font-weight-bolder mb-1">{{question.voter.count}}</div>
@@ -39,10 +42,10 @@
                     </div>
                     {% if request.user == question.author %}
                     <div class="my-3">
-                        <a href="{% url 'pybo:question_modify' question.id  %}"
+                        <a href="{% url 'pybo:question_modify' question.id %}"
                            class="btn btn-sm btn-outline-secondary">수정</a>
                         <a href="#" class="delete btn btn-sm btn-outline-secondary"
-                           data-uri="{% url 'pybo:question_delete' question.id  %}">삭제</a>
+                           data-uri="{% url 'pybo:question_delete' question.id %}">삭제</a>
                     </div>
                     {% endif %}
                     
