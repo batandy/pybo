@@ -13,3 +13,19 @@
         </div>
     {% endfor %}
 {% endif %}
+
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <div id="error" class="alert alert-danger">
+            <strong>{{ message }}</strong>
+        </div>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+<script type='text/javascript'>
+setTimeout(function() {
+    $('#error').fadeOut('fast');
+}, 3000); // <-- time in milliseconds
+</script>

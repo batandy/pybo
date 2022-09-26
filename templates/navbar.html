@@ -25,14 +25,23 @@
             <span></span>
         </label>
         <!-- 클릭시 나타날 사이드바 -->
-        <div class="sidebar">
-            <ul>
-                <li><a class="button" href="{% url 'common:profile_index' %}">프로필</a></li>
-                <li><a class="button" href=""></a>내 글</li>
-                {% if user.is_superuser %}
-                <li><a class="button" href=""></a>관리페이지</li>
-                {% endif %}
-            </ul>
+        <div class="sidebar" style="background-color: #ffffff00;">
+            <div class="card" style="width:300px" style="background-color: #ffffff;">
+                <img class="card-img-top" src="images/img2.jpg" alt="프로필" width="100" height="150">
+                <div class="card-body">
+                    {% if user.is_authenticated %}
+                        <h4 class="card-title">{{ user.username }}</h4>
+                    {% else %}
+                        <h4 class="card-title"><a class="nav-link" href="{% url 'common:login' %}">로그인</a></h4>
+                    {% endif %}
+                    <p class="card-text">카드 내용 설명</p>
+                    <a href="{% url 'common:profile_page' %}" class="card-link">프로필</a>
+                    <a href="{% url 'common:naver_map' %}" class="card-link">네이버 지도</a>
+                    {% if user.is_superuser %}
+                        <a href="admin" class="card-link">관리자 설정</a>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
 </nav>

@@ -57,3 +57,4 @@ def detail(request, question_id, category_name):
 
     context={'question':question, 'answer_list':answer_list, 'category':category}
     return render(request, 'pybo/question_detail.html', context)
+

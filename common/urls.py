@@ -1,6 +1,7 @@
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from . import views
+
 app_name='common'
 
 urlpatterns=[
@@ -9,5 +10,9 @@ urlpatterns=[
     path('signup/', views.signup, name='signup'),
     
     #pofile
-    path('profile/', views.profile_index, name='profile_index'),
+    path('profile/', views.profile_index, name='profile_page'),
+    path('profile/change_password/', views.change_password, name='change_password'),
+
+    #map
+    path('map/', views.map, name='naver_map'),
 ]

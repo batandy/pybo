@@ -31,5 +31,4 @@ urlpatterns=[
     path('vote/answer/<int:answer_id>/', vote_views.vote_answer, name='vote_answer'),
 
     
-
 ]
