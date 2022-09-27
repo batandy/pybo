@@ -2,4 +2,4 @@
 /shelf/
 /workspace.xml
 
-config/settings.py
+secrets.json
