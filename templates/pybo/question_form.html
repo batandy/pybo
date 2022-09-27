@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h3 class="my-3 border_bottom pb-2">[{{ category.description }}] 질문 등록</h3>
+    <form method="post" class="post-form my-3">
+        {% csrf_token %}
+        <!-- 오류 표시 Start -->
+        {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+                {% for field in form %}
+                    {% if field.errors %}
+                    <strong>{{ field.label }}</strong>
+                    {{ field.errors }}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+        <!-- 오류표시 End -->
+        <div class="form-group">
+            {% csrf_token %}
+            {{form.media}}    
+            {{form.as_p}}
+            {% if user.is_superuser %}
+                <br>
+                <label><input type="checkbox" name="top_fixed" value="top_fixed">상단 고정</label>
+            {% endif %}
+        </div>
+        <button type="submit" class="btn btn-primary">저장하기</button>
+    </form>
+</div>
+{% endblock %}

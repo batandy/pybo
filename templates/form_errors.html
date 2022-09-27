@@ -1,0 +1,31 @@
+{% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ field.label }}</strong>
+                {{ error }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error }}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
+
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <div id="error" class="alert alert-danger">
+            <strong>{{ message }}</strong>
+        </div>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+<script type='text/javascript'>
+setTimeout(function() {
+    $('#error').fadeOut('fast');
+}, 3000); // <-- time in milliseconds
+</script>
