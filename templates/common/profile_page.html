@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+{% include "form_errors.html" %}
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>유저 프로필</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="/templates/images/favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="/static/profile_styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Product section-->
+        <section class="py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="row gx-4 gx-lg-5 align-items-center">
+                    <div class="col-md-6"><img src="profile.image.url" class="card-img-top mb-5 mb-md-0" alt="프로필 사진" /></div>
+                    <div class="col-md-6">
+                        <p class="border-bottom pl-2 pb-3 my-2" style="font-size: 25px;">아이디: {{ user.username }}</p>
+                        <p class="border-bottom pl-2 pb-3 my-2" style="font-size: 25px;">이메일: {{ user.email }}</p>
+                        <div class="d-flex">
+                            <a class="btn btn-outline-dark flex-shrink-0" href="{% url 'common:change_password' user.id %}" type="button">
+                                프로필 정보 변경
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+    </body>
+</html>
+{% endblock %}
