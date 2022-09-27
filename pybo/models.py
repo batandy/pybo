@@ -47,3 +47,6 @@ class Comment(models.Model):
     question = models.ForeignKey(Question, null=True, blank=True, on_delete=models.CASCADE)
     answer=models.ForeignKey(Answer, null=True, blank=True, on_delete=models.CASCADE)
 
+class Profile(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to="templates/images/", blank=True, null=True)

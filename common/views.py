@@ -1,11 +1,12 @@
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
-from common.forms import UserCreateForm
+from common.forms import ImageForm, UserCreateForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages, auth
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.hashers import check_password
+from pybo.models import Profile
 
 def signup(request):
     """
@@ -26,18 +27,22 @@ def signup(request):
 
 
 @login_required
-def change_password(request):
+def change_password(request, user_id):
     if request.method == "POST":
         user = request.user
+        profile = Profile()
         origin_password = request.POST["origin_password"]
         if check_password(origin_password, user.password):
             new_password = request.POST["new_password"]
             confirm_password = request.POST["confirm_password"]
             if new_password == confirm_password:
                 user.set_password(new_password)
+                profile.image = request.POST['profile_image']
+                profile.user=user
                 user.save()
+                profile.save()
                 auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-                messages.success(request, "비밀번호를 성공적으로 변경하였습니다.")
+                messages.success(request, "정보를 성공적으로 변경하였습니다.")
                 return redirect('common:profile_page')
             else:
                 messages.error(request, "새 비밀번호가 일치하지 않습니다.")
@@ -53,7 +58,9 @@ def change_password(request):
 # Create your views here.
 @login_required(login_url='common:login')
 def profile_index(request):
-    return render(request, 'common/profile_page.html')
+    profile = Profile()
+    image=profile.image
+    return render(request, 'common/profile_page.html', {'image': image})
     
 #네이버 지도
 def map(request):

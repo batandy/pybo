@@ -14,6 +14,7 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 import pybo.apps
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -134,3 +135,7 @@ LOGOUT_REDIRECT_URL = '/'
 
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 CKEDITOR_IMAGE_BACKEND = "pillow"
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+

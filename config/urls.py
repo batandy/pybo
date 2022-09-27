@@ -17,11 +17,12 @@ from django.contrib import admin
 from django.urls import path, include
 from pybo.views import base_views
 
+app_name='config'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('pybo/', include('pybo.urls')),
     path('common/', include('common.urls')),
-    path('profile/', include('pybo.urls')),
     path('<str:category_name>/', base_views.index, name='index'), # '/'에 해당되는 path
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('', base_views.index, name='index'),
