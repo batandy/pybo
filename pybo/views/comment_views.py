@@ -3,8 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect, resolve_url
 from django.utils import timezone
 
-from ..forms import CommentForm
 from ..models import Question, Answer, Comment
+from ..forms import CommentForm
 
 
 @login_required(login_url='common:login')
